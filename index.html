@@ -6,30 +6,35 @@
   <title>ShopCalc - Smart Shopping</title>
   <link rel="icon" type="image/png" href="applogo.png">
   
-  <meta name="theme-color" content="#2563eb" />
+  <meta name="theme-color" content="#2A4B3C" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192x192.png" />
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+    /* Menggunakan font Nunito yang membulat dan ramah, senada dengan icon 3D */
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
 
     :root {
-      --primary: #2563eb;
-      --primary-hover: #1d4ed8;
-      --bg: #f8fafc;
+      --primary: #2A4B3C;       /* Hijau Tua (Warna body kalkulator) */
+      --primary-hover: #1F382D;
+      --secondary: #73C32B;     /* Hijau Terang (Warna background & tombol +) */
+      --accent: #FF8A00;        /* Oranye (Warna tombol = ) */
+      --accent-hover: #E57C00;
+      --bg: #F4F7F4;            /* Latar belakang abu kehijauan yang lembut */
       --surface: #ffffff;
-      --text: #0f172a;
-      --text-light: #64748b;
-      --border: #e2e8f0;
+      --text: #2A4B3C;          /* Teks utama disamakan dengan hijau tua */
+      --text-light: #7A9387;
+      --border: #DDE5E0;
       --danger: #ef4444;
-      --success: #22c55e;
+      --success: #73C32B;       /* Centang menggunakan hijau terang */
+      --delete-btn: #FF7E7E;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-family: 'Nunito', sans-serif;
       background-color: var(--bg);
       color: var(--text);
       padding-bottom: 120px; /* Space for sticky footer */
@@ -42,14 +47,14 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      box-shadow: 0 2px 10px rgba(42, 75, 60, 0.05);
       position: sticky;
       top: 0;
       z-index: 10;
     }
 
     .brand {
-      font-weight: 700;
+      font-weight: 800;
       font-size: 1.25rem;
       color: var(--primary);
       text-decoration: none;
@@ -58,11 +63,15 @@
       gap: 0.5rem;
     }
 
+    .brand i {
+      color: var(--secondary);
+    }
+
     .clear-btn {
       background: none;
       border: none;
       color: var(--danger);
-      font-weight: 600;
+      font-weight: 700;
       font-size: 0.9rem;
       cursor: pointer;
       font-family: inherit;
@@ -78,21 +87,23 @@
     /* Item List */
     .item-card {
       background: var(--surface);
-      border-radius: 12px;
+      border-radius: 16px; /* Dibuat lebih membulat */
       padding: 1rem;
-      margin-bottom: 0.75rem;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-      border: 1px solid var(--border);
+      margin-bottom: 0.85rem;
+      box-shadow: 0 4px 6px rgba(42, 75, 60, 0.04);
+      border: 2px solid transparent;
       display: grid;
       grid-template-columns: auto 1fr auto;
       gap: 1rem;
       align-items: center;
-      transition: opacity 0.2s;
+      transition: all 0.2s;
     }
 
     .item-card.bought {
       opacity: 0.6;
-      background: #f1f5f9;
+      background: #EAF0EC;
+      border-color: var(--border);
+      box-shadow: none;
     }
 
     .item-card.bought input {
@@ -107,10 +118,11 @@
     }
     
     input[type="checkbox"] {
-      width: 1.2rem;
-      height: 1.2rem;
+      width: 1.4rem;
+      height: 1.4rem;
       accent-color: var(--success);
       cursor: pointer;
+      border-radius: 4px;
     }
 
     /* Inputs */
@@ -129,30 +141,32 @@
       border: none;
       background: transparent;
       font-family: inherit;
-      font-size: 1rem;
+      font-size: 0.9rem;
       color: var(--text);
       outline: none;
       width: 100%;
     }
 
     input[type="text"] {
-      font-weight: 600;
+      font-weight: 700;
+      font-size: 1.1rem;
     }
     
-    input[type="text"]::placeholder { color: #94a3b8; font-weight: 400; }
+    input[type="text"]::placeholder { color: #A0B5AA; font-weight: 600; }
 
-    .qty-input { width: 50px !important; text-align: center; background: var(--bg) !important; border-radius: 6px !important; padding: 0.25rem;}
-    .price-input { flex: 1; background: var(--bg) !important; border-radius: 6px !important; padding: 0.25rem 0.5rem;}
+    .qty-input { width: 50px !important; text-align: center; background: var(--bg) !important; border-radius: 10px !important; padding: 0.45rem 0.35rem; font-weight: 700;}
+    .price-input { flex: 1; background: var(--bg) !important; border-radius: 10px !important; padding: 0.45rem 0.75rem; font-weight: 600;}
 
     /* Delete Btn */
     .delete-btn {
-      color: var(--text-light);
+      color: var(--delete-btn);
       background: none;
       border: none;
       padding: 0.5rem;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
       transition: 0.2s;
+      font-size: 1.1rem;
     }
 
     .delete-btn:hover { color: var(--danger); background: #fee2e2; }
@@ -165,7 +179,7 @@
       right: 0;
       background: var(--surface);
       padding: 1rem 1.5rem;
-      box-shadow: 0 -4px 6px -1px rgba(0,0,0,0.05);
+      box-shadow: 0 -4px 15px rgba(42, 75, 60, 0.08);
       border-top: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
@@ -187,34 +201,35 @@
       flex-direction: column;
     }
 
-    .total-label { font-size: 0.875rem; color: var(--text-light); }
-    .total-amount { font-size: 1.5rem; font-weight: 700; color: var(--text); }
+    .total-label { font-size: 0.9rem; color: var(--text-light); font-weight: 700; }
+    .total-amount { font-size: 1.6rem; font-weight: 800; color: var(--primary); }
 
     .add-btn {
-      background: var(--primary);
+      background: var(--accent);
       color: white;
       border: none;
-      padding: 0.75rem 1.5rem;
+      padding: 0.85rem 1.75rem;
       border-radius: 50px;
-      font-weight: 600;
-      font-size: 1rem;
+      font-weight: 800;
+      font-size: 1.05rem;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+      box-shadow: 0 4px 10px rgba(255, 138, 0, 0.3);
       transition: 0.2s;
     }
 
-    .add-btn:hover { background: var(--primary-hover); transform: translateY(-1px); }
+    .add-btn:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 6px 12px rgba(255, 138, 0, 0.4); }
 
     /* Empty State */
     .empty-state {
       text-align: center;
-      padding: 3rem 1rem;
+      padding: 4rem 1rem;
       color: var(--text-light);
     }
-    .empty-state i { font-size: 3rem; margin-bottom: 1rem; opacity: 0.5; }
+    .empty-state i { font-size: 4rem; margin-bottom: 1rem; color: var(--border); }
+    .empty-state p { font-weight: 600; font-size: 1.1rem; }
   </style>
 </head>
 <body>
@@ -263,7 +278,7 @@
         listDiv.innerHTML = `
           <div class="empty-state">
             <i class="fa-solid fa-basket-shopping"></i>
-            <p>Keranjang kosong. Mulai tambah barang!</p>
+            <p>Keranjang masih kosong.<br>Ayo mulai belanja!</p>
           </div>`;
         return;
       }
@@ -279,13 +294,14 @@
             <input type="text" placeholder="Nama barang..." value="${item.name}" oninput="updateItem(${index}, 'name', this.value)">
             <div class="input-row">
               <input type="number" class="qty-input" placeholder="Qty" value="${item.qty}" min="1" oninput="updateItem(${index}, 'qty', this.value)">
+              <b style="display: flex; align-items: center">x</b>
               <input type="number" class="price-input" placeholder="Harga satuan" value="${item.price || ''}" oninput="updateItem(${index}, 'price', this.value)">
             </div>
-            <div style="font-size: 0.8rem; color: var(--text-light); font-weight: 600;">
+            <div style="font-size: 0.85rem; color: var(--text-light); font-weight: 700; margin-top: 2px;">
               Subtotal: <span style="color: var(--primary)">${formatRp(item.qty * item.price)}</span>
             </div>
           </div>
-          <button class="delete-btn" onclick="deleteItem(${index})"><i class="fa-solid fa-trash"></i></button>
+          <button class="delete-btn" onclick="deleteItem(${index})"><i class="fa-solid fa-trash-can"></i></button>
         `;
         listDiv.appendChild(card);
       });
@@ -302,6 +318,7 @@
         const inputs = document.querySelectorAll('input[type="text"]');
         if(inputs.length > 0) inputs[inputs.length - 1].focus();
       }, 50);
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     };
 
     const updateItem = (index, field, value) => {
@@ -309,7 +326,6 @@
       items[index][field] = value;
       saveData();
       
-      // Update subtotal text without full re-render to avoid losing input focus
       const cards = document.querySelectorAll('.item-card');
       const subtotalSpan = cards[index].querySelector('span');
       subtotalSpan.textContent = formatRp(items[index].qty * items[index].price);
@@ -343,11 +359,7 @@
     // Register Service Worker for PWA
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js').then(reg => {
-          console.log('ServiceWorker registered');
-        }).catch(err => {
-          console.log('ServiceWorker error: ', err);
-        });
+        navigator.serviceWorker.register('sw.js').catch(err => console.log('SW error: ', err));
       });
     }
 
